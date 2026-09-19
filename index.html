@@ -32,7 +32,7 @@
             <h1 id="page-title">本リスト</h1>
             <p>読んだ本と、これから読みたい本を一か所に。</p>
           </div>
-          <button class="primary-button" id="add-button">＋ 本を登録</button>
+          <div><span id="account-label">未ログイン</span> <button class="secondary-button" id="auth-button">ログイン</button> <button class="primary-button" id="add-button">＋ 本を登録</button></div>
         </header>
 
         <section class="summary" aria-label="読書の集計">
@@ -78,6 +78,6 @@
     </dialog>
 
     <input id="csv-input" type="file" accept=".csv,text/csv" hidden />
-    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js"></script>
   </body>
 </html>
