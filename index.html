@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#275d45" />
+    <meta name="description" content="自分の本を記録する読書管理アプリ" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="style.css" />
+    <title>よむログ</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#top" aria-label="よむログ ホーム"><span>▣</span>よむログ</a>
+        <nav aria-label="本棚">
+          <p class="nav-label">本棚</p>
+          <button class="nav-link active" data-filter="all">すべての本 <span id="all-count"></span></button>
+          <button class="nav-link" data-filter="want">読みたい <span id="want-count"></span></button>
+          <button class="nav-link" data-filter="reading">読書中 <span id="reading-count"></span></button>
+          <button class="nav-link" data-filter="done">読了 <span id="done-count"></span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <button class="text-button" id="import-button">CSVを読み込む</button>
+          <button class="text-button" id="export-button">バックアップを書き出す</button>
+        </div>
+      </aside>
+
+      <main id="top" class="main-content">
+        <header class="topbar">
+          <div>
+            <h1 id="page-title">本リスト</h1>
+            <p>読んだ本と、これから読みたい本を一か所に。</p>
+          </div>
+          <button class="primary-button" id="add-button">＋ 本を登録</button>
+        </header>
+
+        <section class="summary" aria-label="読書の集計">
+          <div class="metric"><span>今年読んだ本</span><strong id="year-count">0冊</strong></div>
+          <div class="metric"><span>今月の読了</span><strong id="month-count">0冊</strong></div>
+          <div class="metric"><span>読みたい本</span><strong id="summary-want-count">0冊</strong></div>
+        </section>
+
+        <section class="controls" aria-label="本リストの操作">
+          <div class="view-buttons" role="tablist" aria-label="表示方法">
+            <button class="view-button active" id="table-view-button" role="tab" aria-selected="true">表で見る</button>
+            <button class="view-button" id="card-view-button" role="tab" aria-selected="false">カードで見る</button>
+          </div>
+          <label class="search"><span class="sr-only">本を検索</span><input id="search-input" type="search" placeholder="タイトル・著者を検索" /></label>
+        </section>
+
+        <section id="empty-state" class="empty-state" hidden>
+          <h2>まだ本がありません</h2>
+          <p>「本を登録」または「CSVを読み込む」から始めましょう。</p>
+        </section>
+
+        <div class="table-wrap" id="table-view">
+          <table>
+            <thead><tr><th>タイトル</th><th>著者</th><th>読了日</th><th>状態</th><th>感想</th><th><span class="sr-only">操作</span></th></tr></thead>
+            <tbody id="book-table-body"></tbody>
+          </table>
+        </div>
+        <section class="card-grid" id="card-view" hidden aria-label="本のカード一覧"></section>
+      </main>
+    </div>
+
+    <dialog id="book-dialog">
+      <form id="book-form" method="dialog">
+        <div class="dialog-header"><h2 id="dialog-title">本を登録</h2><button class="icon-button" type="button" id="close-dialog" aria-label="閉じる">×</button></div>
+        <input id="book-id" type="hidden" />
+        <label>タイトル <input id="book-title" required maxlength="200" autocomplete="off" /></label>
+        <label>著者 <input id="book-author" maxlength="160" autocomplete="off" /></label>
+        <label>状態 <select id="book-status"><option value="want">読みたい</option><option value="reading">読書中</option><option value="done">読了</option></select></label>
+        <label>読了日 <input id="book-date" type="date" /></label>
+        <label>感想 <textarea id="book-notes" rows="5" maxlength="5000" placeholder="印象に残ったこと、メモなど"></textarea></label>
+        <div class="dialog-actions"><button class="delete-button" id="delete-button" type="button" hidden>削除</button><span></span><button class="secondary-button" type="button" id="cancel-button">キャンセル</button><button class="primary-button" type="submit">保存</button></div>
+      </form>
+    </dialog>
+
+    <input id="csv-input" type="file" accept=".csv,text/csv" hidden />
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "よむログ",
+  "short_name": "よむログ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f7f4",
+  "theme_color": "#275d45",
+  "lang": "ja"
+}
