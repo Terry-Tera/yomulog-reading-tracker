@@ -78,6 +78,15 @@
     </dialog>
 
     <input id="csv-input" type="file" accept=".csv,text/csv" hidden />
-    <script src="app.js"></script>
+    <script>
+      // 旧版のオフラインキャッシュがログイン処理を古いまま保持していたため、
+      // 初回だけ登録済みの Service Worker を解除して最新版へ切り替える。
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations()
+          .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+          .catch(() => {});
+      }
+    </script>
+    <script src="app.js?v=20260922-2"></script>
   </body>
 </html>
